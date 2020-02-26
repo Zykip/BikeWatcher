@@ -1,0 +1,34 @@
+﻿@model BikeWatcher.ViewModel.LIstBikeStationViewModel
+
+
+
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Adresse</th>
+            <th scope="col">Nombre de velo disponible</th>
+            <th scope="col">Nombre d'emplacement disponible</th>
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+
+        @foreach (var station in Model.LIstBike)
+        {
+            <tr>
+                <td>@station.name</td>
+                <td>@station.address</td>
+
+                <td>@station.available_bikes</td>
+                <td>@station.bike_stands</td>
+                <td>@station.status</td>
+            </tr>
+
+        }
+    </tbody>
+</table>

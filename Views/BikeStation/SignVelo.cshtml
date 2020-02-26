@@ -1,0 +1,28 @@
+﻿@model BikeWatcher.Models.SignVelo
+@{
+
+}
+
+<h1>Signaler un vélo défectueux</h1>
+
+<form asp-action="SignVelo">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="IdVelo" class="control-label"></label>
+        <input asp-for="IdVelo" class="form-control" />
+        <span asp-validation-for="IdVelo" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Commentaire" class="control-label"></label>
+        <input asp-for="Commentaire" class="form-control" />
+        <span asp-validation-for="Commentaire" class="text-danger"></span>
+    </div>    
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>

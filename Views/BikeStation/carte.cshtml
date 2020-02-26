@@ -1,0 +1,81 @@
+﻿@model BikeWatcher.ViewModel.LIstBikeStationViewModel
+
+<style type="text/css">
+
+    #map {
+        height: 800px;
+    }
+</style>
+<title>Carte</title>
+<body>
+    <div id="map">
+
+    </div>
+
+    <script type="text/javascript">
+
+        var options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        };
+        var lat = 45.75;
+        var lon = 4.85;
+        function success(pos) {
+            var crd = pos.coords;
+            lat = crd.latitude;
+            lon = crd.longitude;
+            var macarte = null;
+            initMap();
+        }
+
+        function error(err) {
+            console.warn(`ERREUR (${err.code}): ${err.message}`);
+            initMap();
+
+        }
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(success, error, options);
+            Location.reload();
+        }
+        var macarte = null;
+
+        function initMap() {
+            var villes = [
+
+                @foreach (var stationBike in Model.LIstBike)
+                {
+                    <text>
+                        {
+                            "address": "@stationBike.address",
+                            "lat": "@stationBike.lat",
+                            "lon": "@stationBike.lng",
+                            "velo_dispo": "@stationBike.available_bikes",
+                            "id": @stationBike.gid,
+                        },
+
+                    </text>
+
+
+            }];
+            console.log(villes);
+            macarte = L.map('map').setView([lat, lon], 11);
+           L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png',
+                {
+                    attribution: 'données © OpenStreetMap/ODbL - rendu OSM France',
+                    minZoom: 1,
+                    maxZoom: 20
+                }).addTo(macarte);
+            for (ville in villes) {
+                console.log();
+                var marker = L.marker([villes[ville].lat, villes[ville].lon]).addTo(macarte);
+                marker.bindPopup("<p> nombre de velo : "+ villes[ville].velo_dispo + "</p> <p> Addresse : " + villes[ville].address + " </p> "+"<a href="+window.location.origin+"/BikeStation/AddToFav/"+villes[ville].id+">Ajouter aux favoris</a>");
+            }
+        }
+
+        window.onload = function () {
+            initMap();
+        };
+    </script>
+</body>
+</html>

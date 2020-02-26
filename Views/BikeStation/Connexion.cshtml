@@ -1,0 +1,10 @@
+@model BikeWatcher.ViewModel.ConnxionViewModel
+
+@using (Html.BeginForm("Inscription", "BikeStation"))
+{
+    @Html.Display("Mail :")
+@Html.TextBoxFor(u => u.Mail)
+@Html.Display("Mot de passe :")
+@Html.TextBoxFor(u => u.Password)
+<input type="submit" value="Valider" />
+}
